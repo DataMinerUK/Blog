@@ -43,7 +43,7 @@ delta = d2 - d1
 for i in range(delta.days + 1):
 	date = d1 + timedelta(days = i)
 	date = date.strftime("%Y-%m-%d")
-	if date not in donorsByDate.keys():
+	if date not in donorsByDate:
 		donorsByDate[date] = []
 		
 print donorsByDate
@@ -52,10 +52,6 @@ print donorsByDate
 out = csv.writer(open("CountOfUniqueDonorsByDate.csv", "w"))
 out.writerow(["Date", "Number of Unique Donors"])              #Headers
 
-#A dictionary is unordered so we need to sort the keys and write each row to the new csv based on the sorted dates
-keylist = donorsByDate.keys()
-keylist.sort()
-
-#Writing out the date and the number of donors i.e. the length of the list
-for k in keylist:
-	out.writerow([k, len(donorsByDate[k])])
+#Writing out the date and the number of donors i.e. the length of the list, sorted by date
+for d in sorted(donorsByDate):
+	out.writerow([d, len(donorsByDate[key])])
